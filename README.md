@@ -100,12 +100,6 @@ GitHub Actions
 Prometheus
 Grafana
 
-$ mission
-
-Build scalable cloud-native systems
-Automate infrastructure
-Deploy faster
-Scale smarter
 
 $ status
 
