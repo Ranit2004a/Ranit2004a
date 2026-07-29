@@ -35,7 +35,7 @@
 
 <td width="42%" align="center" valign="middle">
 
-<img src="assets/ascii-me.gif" width="600" alt="ASCII Portrait"/>
+<img src="assets/ascii-me.gif" width="400" alt="ASCII Portrait"/>
 
 </td>
 
