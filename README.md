@@ -79,6 +79,17 @@ echo "[+] Mission: Build. Automate. Scale. Ship."
 
 # ⚡ Terminal
 
+<table>
+<tr>
+
+<td width="42%" align="center" valign="middle">
+
+<img src="assets/D.gif" width="600" alt="Terminal Animation"/>
+
+</td>
+
+<td width="58%" valign="top">
+
 ```bash
 $ whoami
 
@@ -106,6 +117,10 @@ $ status
 Learning. Building. Shipping.
 ```
 
+</td>
+
+</tr>
+</table>
 ---
 
 # 🛠️ Tech Arsenal
@@ -303,4 +318,8 @@ Machine Learning based diagnostic and prognostic framework for lung cancer analy
 
 <img src="https://capsule-render.vercel.app/api?type=waving&height=120&section=footer&color=gradient&customColorList=12,20,24,30"/>
 
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> eb1c96d (new md)
