@@ -12,11 +12,11 @@
 <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
 </a>
 
-<a href="https://linkedin.com/in/YOUR_LINKEDIN">
+<a href="https://www.linkedin.com/in/ranitmmondal/">
 <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
 </a>
 
-<a href="https://YOUR_PORTFOLIO_URL">
+<a href="https://ranitportfolio.vercel.app/">
 <img src="https://img.shields.io/badge/Portfolio-171717?style=for-the-badge&logo=vercel&logoColor=white"/>
 </a>
 
@@ -254,7 +254,7 @@ Gemini API • GitHub Actions
 
 ---
 
-# 🐍 Contribution Snake
+# Contribution Snake
 
 <div align="center">
 
@@ -274,7 +274,7 @@ Machine Learning based diagnostic and prognostic framework for lung cancer analy
 
 ---
 
-# 🎯 2025 Goals
+# 🎯 2026 Goals
 
 ```text
 ☁️ Master AWS Architecture
@@ -295,11 +295,11 @@ Machine Learning based diagnostic and prognostic framework for lung cancer analy
 <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
 </a>
 
-<a href="https://linkedin.com/in/YOUR_LINKEDIN">
+<a href="https://www.linkedin.com/in/ranitmmondal/">
 <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
 </a>
 
-<a href="https://YOUR_PORTFOLIO_URL">
+<a href="https://ranitportfolio.vercel.app/">
 <img src="https://img.shields.io/badge/Portfolio-171717?style=for-the-badge&logo=vercel&logoColor=white"/>
 </a>
 
