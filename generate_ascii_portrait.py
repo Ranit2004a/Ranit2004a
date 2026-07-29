@@ -289,13 +289,15 @@ def render_terminal_gif(
     font_path: str,
     sorted_chars: str,
     title: str = "ascii-me.gif",
-    font_size: int = 18,
-    num_frames: int = 24,
-    fps: int = 12,
+    font_size: int = 9,
+    num_frames: int = 180,
+    fps: int = 15,
 ):
     """
-    Render ASCII character grid into an animated GIF with CRT scanline beam,
-    subtle terminal character shimmer noise, and pulsing glows.
+    Render ASCII character grid into a multi-phase looped animated GIF:
+      - Phase 1: Clean ASCII portrait renders for 2 seconds (30 frames).
+      - Phase 2: Matrix Digital Rain triggers and falls continuously for 10 seconds (150 frames).
+      - Phase 3: Rain completes its fall and clears, returning to clean ASCII portrait in a loop.
     """
     font = ImageFont.truetype(font_path, font_size)
 
@@ -317,45 +319,131 @@ def render_terminal_gif(
     img_w = char_w * len(top_bar) + padding_x * 2
     img_h = char_h * (grid_h + 2) + padding_y * 2
 
+    RAIN_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%"
+    rng = random.Random(42)
+
+    # Pre-generate Digital Rain drop parameters for each column
+    columns_rain = []
+    for c in range(grid_w):
+        if c % 2 == 0 or rng.random() < 0.55:
+            speed = rng.choice([1.4, 1.8, 2.2, 2.6])
+            length = rng.randint(10, 18)
+            delay = rng.randint(0, 10)  # Staggered start for natural rain drop arrival
+            columns_rain.append({
+                "speed": speed,
+                "length": length,
+                "delay": delay,
+                "symbols": [rng.choice(RAIN_CHARS) for _ in range(grid_h * 4)]
+            })
+        else:
+            columns_rain.append(None)
+
+    # Theme colors
+    is_green = "green" in output_path.lower() or text_color == "#00ff41" or bg_color == "black"
+    if is_green:
+        head_color = (255, 255, 255)
+        bright_trail = (160, 255, 190)
+        mid_trail = (0, 255, 65)
+        dim_trail = (0, 140, 35)
+        bg_rgb = (0, 0, 0)
+        base_text_rgb = (0, 255, 65)
+    else:
+        head_color = (255, 255, 255)
+        bright_trail = (180, 225, 255)
+        mid_trail = (88, 166, 255)
+        dim_trail = (35, 90, 170)
+        bg_rgb = (13, 17, 23)
+        base_text_rgb = (88, 166, 255)
+
     frames = []
     scan_step = (grid_h + 8) / num_frames
+
+    # Digital rain phase window: 150 frames @ 15 FPS = 10.0 seconds of digital rain!
+    rain_start_frame = 30
+    rain_duration_frames = 150
 
     for frame_idx in range(num_frames):
         scan_y = int(frame_idx * scan_step) - 4
 
-        canvas = Image.new("RGB", (img_w, img_h), bg_color)
+        canvas = Image.new("RGB", (img_w, img_h), bg_rgb)
         draw = ImageDraw.Draw(canvas)
 
         # Draw top border
-        draw.text((padding_x, padding_y), top_bar, fill=text_color, font=font)
+        draw.text((padding_x, padding_y), top_bar, fill=base_text_rgb, font=font)
 
+        # Compute digital rain positions if currently in 10-second rain phase
+        rain_map = {}
+        if rain_start_frame <= frame_idx < (rain_start_frame + rain_duration_frames):
+            rel_frame = frame_idx - rain_start_frame
+            for c, rain in enumerate(columns_rain):
+                if rain is None:
+                    continue
+                effective_frame = max(0, rel_frame - rain["delay"])
+                cycle_len = grid_h + rain["length"] + 10
+                head_y = (effective_frame * rain["speed"]) % cycle_len - 5
+                for r_offset in range(rain["length"]):
+                    r = int(head_y - r_offset)
+                    if 0 <= r < grid_h:
+                        dist = r_offset
+                        is_head = (dist == 0)
+                        intensity = 1.0 - (dist / rain["length"])
+                        sym_idx = (frame_idx + r * 3 + c * 7) % len(rain["symbols"])
+                        rain_map[(r, c)] = (is_head, intensity, rain["symbols"][sym_idx])
+
+        # Draw ASCII rows
         for r in range(grid_h):
             row_chars = list(ascii_grid[r])
 
-            # Apply subtle 2.5% random character glitch/shimmer noise
-            for c in range(grid_w):
-                if random.random() < 0.025:
-                    c_idx = sorted_chars.find(row_chars[c])
-                    if c_idx != -1:
-                        shift = random.choice([-2, -1, 1, 2])
-                        new_idx = max(0, min(num_chars - 1, c_idx + shift))
-                        row_chars[c] = sorted_chars[new_idx]
+            # Apply subtle character shimmer during normal portrait rendering
+            if not rain_map:
+                for c in range(grid_w):
+                    if rng.random() < 0.008:
+                        c_idx = sorted_chars.find(row_chars[c])
+                        if c_idx != -1:
+                            shift = rng.choice([-1, 1])
+                            new_idx = max(0, min(num_chars - 1, c_idx + shift))
+                            row_chars[c] = sorted_chars[new_idx]
 
-            line_str = f"│ {''.join(row_chars)} │"
             y = padding_y + (r + 1) * char_h
+            line_str = f"│ {''.join(row_chars)} │"
 
-            # Highlight scanline row beam
+            # Base render with scanline beam
             if abs(r - scan_y) <= 1:
-                draw.text((padding_x, y), line_str, fill=scan_color, font=font)
+                draw.text((padding_x, y), line_str, fill=bright_trail, font=font)
             else:
-                draw.text((padding_x, y), line_str, fill=text_color, font=font)
+                draw.text((padding_x, y), line_str, fill=base_text_rgb, font=font)
+
+            # Overlay digital rain drops if active on current cell
+            for c in range(grid_w):
+                if (r, c) in rain_map:
+                    is_head, intensity, rain_sym = rain_map[(r, c)]
+                    ch = row_chars[c]
+                    if ch == " ":
+                        ch = rain_sym
+
+                    if is_head:
+                        color = head_color
+                    elif intensity > 0.65:
+                        color = bright_trail
+                    elif intensity > 0.35:
+                        color = mid_trail
+                    else:
+                        color = dim_trail
+
+                    x_pos = padding_x + (c + 2) * char_w
+                    draw.text((x_pos, y), ch, fill=color, font=font)
 
         # Draw bottom border
         draw.text(
-            (padding_x, padding_y + (grid_h + 1) * char_h), bottom_bar, fill=text_color, font=font
+            (padding_x, padding_y + (grid_h + 1) * char_h), bottom_bar, fill=base_text_rgb, font=font
         )
 
-        frames.append(canvas)
+        # Resize frame to web-optimized 500px width and use WEB palette for lightweight (<5MB) file size
+        target_w = 500
+        target_h = int(500 * img_h / img_w)
+        canvas_scaled = canvas.resize((target_w, target_h), Image.LANCZOS)
+        frame_p = canvas_scaled.convert("P", palette=Image.WEB)
+        frames.append(frame_p)
 
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     frame_duration = int(1000 / fps)
@@ -367,7 +455,7 @@ def render_terminal_gif(
         loop=0,
         optimize=True,
     )
-    print(f"[+] Output Animated GIF saved: {output_path} ({num_frames} frames @ {fps} fps)")
+    print(f"[+] Output Animated GIF saved: {output_path} ({len(frames)} frames @ {fps} fps)")
 
 
 def update_readme_file(include_gif: bool = True):
@@ -407,10 +495,10 @@ def main():
         "--no-gif", action="store_true", help="Disable animated GIF generation"
     )
     parser.add_argument(
-        "--frames", type=int, default=24, help="Number of animation frames (default 24)"
+        "--frames", type=int, default=180, help="Number of animation frames (default 180)"
     )
     parser.add_argument(
-        "--fps", type=int, default=12, help="Animation frames per second (default 12)"
+        "--fps", type=int, default=15, help="Animation frames per second (default 15)"
     )
 
     args = parser.parse_args()
@@ -437,7 +525,7 @@ def main():
     sorted_chars = compute_character_densities(font_path)
     print(f"[*] Character density map: {sorted_chars}")
 
-    ascii_grid = image_to_ascii_grid(enhanced, sorted_chars, target_width=target_width)
+    ascii_grid_png = image_to_ascii_grid(enhanced, sorted_chars, target_width=target_width)
 
     out_dir = args.output_dir
     path_blue_png = os.path.join(out_dir, THEME_BLUE["png_filename"])
@@ -445,7 +533,7 @@ def main():
 
     # Render PNGs
     render_terminal_png(
-        ascii_grid,
+        ascii_grid_png,
         path_blue_png,
         bg_color=THEME_BLUE["bg"],
         text_color=THEME_BLUE["text"],
@@ -454,7 +542,7 @@ def main():
     )
 
     render_terminal_png(
-        ascii_grid,
+        ascii_grid_png,
         path_green_png,
         bg_color=THEME_GREEN["bg"],
         text_color=THEME_GREEN["text"],
@@ -462,13 +550,14 @@ def main():
         title=THEME_GREEN["title"] + ".png",
     )
 
-    # Render GIFs (if enabled)
+    # Render GIFs (if enabled) using target_width=75 for ultra-compact GIF size (<5MB)
     if not args.no_gif:
+        ascii_grid_gif = image_to_ascii_grid(enhanced, sorted_chars, target_width=75)
         path_blue_gif = os.path.join(out_dir, THEME_BLUE["gif_filename"])
         path_green_gif = os.path.join(out_dir, THEME_GREEN["gif_filename"])
 
         render_terminal_gif(
-            ascii_grid,
+            ascii_grid_gif,
             path_blue_gif,
             bg_color=THEME_BLUE["bg"],
             text_color=THEME_BLUE["text"],
@@ -476,12 +565,13 @@ def main():
             font_path=font_path,
             sorted_chars=sorted_chars,
             title=THEME_BLUE["title"] + ".gif",
+            font_size=10,
             num_frames=args.frames,
             fps=args.fps,
         )
 
         render_terminal_gif(
-            ascii_grid,
+            ascii_grid_gif,
             path_green_gif,
             bg_color=THEME_GREEN["bg"],
             text_color=THEME_GREEN["text"],
@@ -489,6 +579,7 @@ def main():
             font_path=font_path,
             sorted_chars=sorted_chars,
             title=THEME_GREEN["title"] + ".gif",
+            font_size=10,
             num_frames=args.frames,
             fps=args.fps,
         )
