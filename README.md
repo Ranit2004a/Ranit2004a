@@ -302,24 +302,65 @@ Learning. Building. Shipping.
 
 # 📚 Research
 
-### Advancing Lung Cancer Diagnosis and Prognosis
+<div align="center">
 
-Accepted at **CICBA 2024**
+### 🧬 Advancing Lung Cancer Diagnosis and Prognosis
+**Accepted at CICBA 2024**
 
-Machine Learning based diagnostic and prognostic framework for lung cancer analysis.
+<br/>
+
+<img src="https://img.shields.io/badge/Publication-Accepted%20%7C%20CICBA%202024-success?style=flat-square"/>
+<img src="https://img.shields.io/badge/Domain-Machine%20Learning-blue?style=flat-square&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Focus-Healthcare%20AI-purple?style=flat-square"/>
+
+<br/><br/>
+
+*Machine Learning based diagnostic and prognostic framework for lung cancer analysis.*
+
+</div>
 
 ---
 
 # 🎯 2026 Goals
 
-```text
-☁️ Master AWS Architecture
-⚙️ Build Production Kubernetes Clusters
-🚀 Become a DevOps Engineer
-🤖 Build AI Agent Applications
-📈 Contribute to Open Source
-🏆 Land a High-Impact Engineering Role
-```
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### ☁️ Cloud & Infrastructure
+- ☁️ **Master AWS Architecture**  
+  <img src="https://img.shields.io/badge/Status-In_Progress-007ACC?style=flat-square&logo=amazon-aws&logoColor=white"/>
+- ⚙️ **Build Production K8s Clusters**  
+  <img src="https://img.shields.io/badge/Status-In_Progress-326CE5?style=flat-square&logo=kubernetes&logoColor=white"/>
+
+</td>
+<td width="50%" valign="top">
+
+### 🚀 Career & DevOps
+- 🚀 **Become a DevOps Engineer**  
+  <img src="https://img.shields.io/badge/Focus-Primary-2496ED?style=flat-square&logo=githubactions&logoColor=white"/>
+- 🏆 **Land High-Impact Role**  
+  <img src="https://img.shields.io/badge/Target-2026-44CC11?style=flat-square"/>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🤖 AI & Innovation
+- 🤖 **Build AI Agent Applications**  
+  <img src="https://img.shields.io/badge/Status-Exploring-8E75B2?style=flat-square&logo=google-gemini&logoColor=white"/>
+
+</td>
+<td width="50%" valign="top">
+
+### 📈 Open Source & Community
+- 📈 **Contribute to Open Source**  
+  <img src="https://img.shields.io/badge/Status-Ongoing-FF9900?style=flat-square&logo=github&logoColor=white"/>
+
+</td>
+</tr>
+</table>
 
 ---
 
