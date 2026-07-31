@@ -35,7 +35,7 @@
 
 <td width="42%" align="center" valign="middle">
 
-<img src="assets/ascii-me.gif" width="400" alt="ASCII Portrait"/>
+<img src="assets/ascii-me.gif" width="500" alt="ASCII Portrait"/>
 
 </td>
 
@@ -152,41 +152,55 @@ Learning. Building. Shipping.
 <table>
 <tr>
 
-<td width="50%">
+<td width="50%" valign="top">
 
 ### ⚖️ LAW GLANCE
+*AI-Powered Legal Services Platform*
 
-AI-powered legal services platform.
+<br/>
 
 **Stack**
+<div>
+<img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white"/>
+<img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black"/>
+<img src="https://img.shields.io/badge/Gemini_AI-8E75B2?style=flat-square&logo=google-gemini&logoColor=white"/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white"/>
+</div>
 
-Firebase • FastAPI • Gemini API • Docker
+<br/>
 
-**Highlights**
+**Key Highlights**
 
-- 40% faster legal search
-- Offline legal rights lookup
-- Real-time lawyer booking
-- 3-tier RBAC architecture
+- ⚡ **40% Faster** legal search
+- 📶 **Offline** legal rights lookup
+- 📅 **Real-time** lawyer booking
+- 🔒 **3-Tier RBAC** architecture
 
 </td>
 
-<td width="50%">
+<td width="50%" valign="top">
 
 ### 💬 FlashChat
+*Cloud-Native Messaging Platform*
 
-Cloud-native messaging platform.
+<br/>
 
 **Stack**
+<div>
+<img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white"/>
+<img src="https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white"/>
+<img src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=socketdotio&logoColor=white"/>
+<img src="https://img.shields.io/badge/ArgoCD-EF7B4D?style=flat-square&logo=argo&logoColor=white"/>
+</div>
 
-Kubernetes • Redis • Socket.IO • ArgoCD
+<br/>
 
-**Highlights**
+**Key Highlights**
 
-- Zero downtime deployments
-- 100% observability coverage
-- 90% faster releases
-- Production-grade monitoring
+- 🔄 **Zero downtime** deployments
+- 📊 **100% Observability** coverage
+- 🚀 **90% Faster** releases
+- 🛡️ **Production-grade** monitoring
 
 </td>
 
@@ -194,41 +208,54 @@ Kubernetes • Redis • Socket.IO • ArgoCD
 
 <tr>
 
-<td width="50%">
+<td width="50%" valign="top">
 
 ### 🧩 Collaborative Coding Platform
+*Real-Time Collaborative Code Editor*
 
-Real-time collaborative editor.
+<br/>
 
 **Stack**
+<div>
+<img src="https://img.shields.io/badge/Yjs-20B2AA?style=flat-square&logo=javascript&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS_ECS-FF9900?style=flat-square&logo=amazon-aws&logoColor=white"/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS_ECR-FF9900?style=flat-square&logo=amazon-aws&logoColor=white"/>
+</div>
 
-Yjs • AWS ECS • Docker • ECR
+<br/>
 
-**Highlights**
+**Key Highlights**
 
-- 10+ concurrent users
-- CRDT synchronization
-- No merge conflicts
-- 80% lower deployment effort
+- 👥 **10+ Concurrent** users
+- 🔄 **CRDT** synchronization
+- 🛡️ **Zero** merge conflicts
+- 📉 **80% Lower** deployment effort
 
 </td>
 
-<td width="50%">
+<td width="50%" valign="top">
 
 ### 🧠 GenAI Resume Intelligence
+*AI-Powered Career & Resume Assistant*
 
-AI-powered career assistant.
+<br/>
 
 **Stack**
+<div>
+<img src="https://img.shields.io/badge/Gemini_AI-8E75B2?style=flat-square&logo=google-gemini&logoColor=white"/>
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=github-actions&logoColor=white"/>
+</div>
 
-Gemini API • GitHub Actions
+<br/>
 
-**Highlights**
+**Key Highlights**
 
-- Resume analysis
-- Job matching
-- Skill-gap detection
-- Learning roadmap generation
+- 📄 **Smart** resume analysis
+- 🎯 **Automated** job matching
+- 🔍 **Skill-Gap** detection
+- 🗺️ **Learning** roadmap generation
 
 </td>
 
